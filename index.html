@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BTC.org.ly | Advanced Systems Upgrade</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
+        body { font-family: 'Inter', sans-serif; background: #050505; color: white; overflow-x: hidden; }
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        #canvas-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .glow-text { text-shadow: 0 0 15px rgba(59, 130, 246, 0.5); }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-6">
+
+    <canvas id="canvas-bg"></canvas>
+
+    <main class="glass max-w-2xl w-full p-12 rounded-3xl text-center space-y-8 shadow-2xl">
+        <div class="inline-block px-4 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs tracking-widest uppercase mb-4">
+            System Maintenance Mode
+        </div>
+        
+        <h1 class="text-5xl md:text-6xl font-light tracking-tight">BTC.org.ly</h1>
+        
+        <p class="text-slate-400 leading-relaxed text-lg">
+            We are currently integrating advanced AI-powered biological analysis, high-resolution microscopy, and diagnostic diagnostics into our core infrastructure. The future of biotechnology is being recalibrated.
+        </p>
+
+        <div class="pt-6">
+            <button class="px-8 py-3 bg-white text-black font-medium rounded-full hover:bg-blue-50 transition-all duration-300 transform hover:scale-105">
+                Official Inquiry
+            </button>
+            <p class="mt-6 text-sm text-slate-500 italic">Direct communication channels will open soon for authorized entities.</p>
+        </div>
+    </main>
+
+    <footer class="fixed bottom-8 text-slate-600 text-sm tracking-wide">
+        Designed & Managed by <span class="text-slate-300 font-semibold">Saif Al-Din Ali (سيف الدين علي)</span>
+    </footer>
+
+    <script>
+        const canvas = document.getElementById('canvas-bg');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 1;
+                this.speedX = Math.random() * 0.5 - 0.25;
+                this.speedY = Math.random() * 0.5 - 0.25;
+                this.opacity = Math.random() * 0.5;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) this.reset();
+            }
+            draw() {
+                ctx.fillStyle = `rgba(100, 150, 255, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function init() {
+            resize();
+            for (let i = 0; i < 60; i++) particles.push(new Particle());
+            animate();
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', resize);
+        init();
+    </script>
+</body>
+</html>
